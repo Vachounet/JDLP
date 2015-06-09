@@ -1,0 +1,23 @@
+<template name="_statsPopover">
+    {{#ionPopover}}
+    <div class="content">
+        <div class="list">
+            <a class="item item-icon-right">
+          +Bu : {{topBu.bu}} ({{topBu.name}})
+        </a>
+            <a class="item item-icon-right" >
+          +Infligé : {{topInflige.inflige}} ({{topInflige.name}})
+        </a>
+            <a class="item item-icon-right">
++X4Bu : {{topXBu.xbu}} ({{topXBu.name}})
+        </a>
+            <a class="item item-icon-right">
++X4Infligé : {{topXInflige.xinflige}} ({{topXInflige.name}})
+        </a>
+            <a class="item item-icon-right">
++Fautes : {{topFautes.fautes}} ({{topFautes.name}})
+        </a>
+        </div>
+    </div>
+    {{/ionPopover}}
+</template>

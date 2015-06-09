@@ -1,0 +1,36 @@
+<template name="playerNumber">
+    {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+        {{#if isAndroid}} {{> ionIcon icon='android-more-vertical'}} {{else}} {{> ionIcon icon='navicon'}} {{/if}}
+    </button>
+    {{/contentFor}}
+     {{#contentFor "headerTitle"}}
+    <h1 class="title">Nombre de joueurs</h1>
+    {{/contentFor}}    
+    {{#ionView}} {{#ionContent}} 
+
+        <div class="card">
+            <a class="button button-dark button-small" style="display: {{buttonVisibility}}" href="/gameTable/{{currentGameID}}" role="button">Retour à la partie en cours</a>
+            <form id="playersCount" class="playersCount form-horizontal">
+                <div class="list">
+                    {{> playersCnt}}
+                </div>
+                <div class="padding">
+                    <input type="submit" class="submit button button-block button-positive validatePlayersCount" value="Valider">
+                </div>
+            </form>
+
+    </div>
+
+    {{/ionContent}} {{/ionView}}
+</template>
+
+<template name="playersCnt">
+
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Nombre de joueurs</span>
+        <input type="number" tabindex="1" class="form-control" required maxlength="2" name="playerCnt" placeholder="" />
+    </label>
+
+
+</template>

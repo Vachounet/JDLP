@@ -1,0 +1,104 @@
+<template name="gameTable">
+    {{#contentFor "headerTitle"}}
+    <h1 class="title">Partie en cours</h1>
+    {{/contentFor}} {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+        {{#if isAndroid}} {{> ionIcon icon='android-more-vertical'}} {{else}} {{> ionIcon icon='navicon'}} {{/if}}
+    </button>
+    {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-popover="_statsPopover">
+      {{#if isAndroid}}
+        {{> ionIcon icon='android-more-vertical'}} Stats
+      {{else}}
+        {{> ionIcon icon='more'}} Stats
+      {{/if}}
+    </button>
+  {{/contentFor}}    
+    
+    
+    {{#ionView}}    {{#ionSubheaderBar}}
+      <h2 class="title"> C'est à {{currentPlayerNick}} de jouer </h2>
+    {{/ionSubheaderBar}} {{#ionContent}}
+    <!--    {{> breadcrumb}}-->
+
+
+    {{#ionSlideBox doesContinue=true initialSlide=currentPlayer showPager=false }} {{#each players}} {{> playerTableEntry}} {{/each}} {{/ionSlideBox}} {{/ionContent}} {{/ionView}}
+</template>
+
+<template name="playerTableEntry">
+    {{#ionSlide class="light-bg"}}
+
+    <div class="list card">
+  <div class="item item-divider">
+    {{name}}
+  </div>
+        <div class="item item-text-wrap">
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios-pint"></i>
+                Bus : {{bu}}
+            </a>
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios-pint-outline"></i>
+                Infligés : {{inflige}}
+            </a>
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios-pint"></i>
+                X4 Bus : {{xbu}}
+            </a>
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios-pint-outline"></i>
+                X4 Infligés : {{xinflige}}
+            </a>
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-alert-circled energized"></i>
+                Fautes : {{fautes}}
+            </a>
+        </div>
+
+        <div class="item tabs tabs-icon-top">
+            <a id="{{id}}" class="tab-item plus royal" href="#">
+                <i class="icon ion-thumbsup"></i>
+                +1
+            </a>
+            <a id="{{id}}" class="tab-item xquatre positive" href="#">
+                <i class="icon ion-flash"></i>
+                x4
+            </a>
+            <a id="{{id}}" class="tab-item faute energized" href="#">
+                <i class="icon ion-alert"></i>
+                Faute
+            </a>
+            <a id="{{id}}" class="tab-item abandon assertive" href="#">
+                <i class="icon ion-log-out"></i>
+                Abandon
+            </a>
+        </div>
+    </div>
+
+    {{/ionSlide}}
+</template>
+
+<template name="addButton">
+    <a href="#" id="{{id}}" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+</template>
+
+<template name="removeButton">
+    <!--    <a href="#" id="{{id}}" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-minus"></i></a>-->
+</template>
+
+<template name="breadcrumb">
+    <ul class="breadcrumb text-center col-lg-8 col-lg-offset-2">
+        <li><a href="#">+Bu : {{topBu.bu}} ({{topBu.name}})</a>
+        </li>
+        <li><a href="#">+Infligé : {{topInflige.inflige}} ({{topInflige.name}})</a>
+        </li>
+        <li><a href="#">+X4Bu : {{topXBu.xbu}} ({{topXBu.name}})</a>
+        </li>
+        <li><a href="#">+X4Infligé : {{topXInflige.xinflige}} ({{topXInflige.name}})</a>
+        </li>
+        <li><a href="#">+Fautes : {{topFautes.fautes}} ({{topFautes.name}})</a>
+        </li>
+    </ul>
+</template>

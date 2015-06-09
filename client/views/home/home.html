@@ -1,0 +1,44 @@
+<template name="home">
+    {{#contentFor "headerTitle"}}
+    <h1 class="title">JDLP - Accueil</h1>
+    {{/contentFor}}
+    
+  {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+      {{#if isAndroid}}
+        {{> ionIcon icon='android-more-vertical'}}
+      {{else}}
+        {{> ionIcon icon='navicon'}}
+      {{/if}}
+    </button>
+  {{/contentFor}}     
+    
+    {{#ionView}} {{#ionContent}}
+
+        {{#if currentUser}} {{> connected}} {{else}} {{> notConnected}} {{/if}}
+
+    {{/ionContent}} {{/ionView}}
+</template>
+
+<template name="connected">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="item item-text-wrap">
+                    <h1>Bienvenue {{nickname}}!</h1>
+                    <p>Tu peux démarrer une nouvelle partie ou bien reprendre une partie en cours.</p>
+                    <p><a href="/playerCount" class="button button-block button-positive">Nouvelle partie</a>
+                    </p>
+                            <div class="padding">
+          <button class="button button-dark button-block" data-action="logout">Se déconnecter</button>
+        </div>
+                </div>
+            </div>
+            <!--                {{> atForm}}-->
+        </div>
+    </div>
+</template>
+
+<template name="notConnected">
+        {{> atForm}}
+</template>

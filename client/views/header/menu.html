@@ -1,0 +1,28 @@
+<template name="menu">
+    
+    {{#ionItem href="/" iconRight=true}} <div data-ion-menu-close>Accueil</div> {{> ionIcon icon="ios-arrow-right"}} {{/ionItem}}
+
+{{#if currentUser}}
+
+ {{#ionItem href="/playerCount" iconRight=true}} <div data-ion-menu-close>Démarrer une partie</div> {{> ionIcon icon="ios-arrow-right"}} {{/ionItem}}
+
+    {{#ionItem href="/user/" iconRight=true}} <div data-ion-menu-close>Mon compte</div> {{> ionIcon icon="ios-arrow-right"}} {{/ionItem}}
+
+{{/if}}
+
+ {{#ionItem href="/allGames" iconRight=true}} <div data-ion-menu-close>Toutes les parties</div> {{> ionIcon icon="ios-arrow-right"}} {{/ionItem}} 
+    {{#if currentUser}}
+    <div class="padding">
+        <button class="button button-positive button-block" data-ion-menu-close data-action="logout">Se déconnecter</button>
+    </div>
+            <div class="item item-icon-right">
+        Mes parties
+    </div> 
+    {{#each ownGames}}
+
+        <div id="{{_id}}" class="item _modal" data-ion-menu-close>
+        {{localDate}}  
+    </div> 
+    {{/each}}
+    {{/if}}
+</template>

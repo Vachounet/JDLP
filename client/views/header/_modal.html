@@ -1,0 +1,46 @@
+<template name="_myModal">
+    {{#ionModal title="Détails Partie"}}
+    <div class="padding">
+        Détails {{game._id}}
+    </div>
+
+    <div class="row">
+        <div class="col">#</div>
+        <div class="col">B</div>
+        <div class="col">I</div>
+        <div class="col">X4B</div>
+        <div class="col">X4I</div>
+        <div class="col">F</div>
+    </div>
+
+    {{#each game.playerList}}
+
+    <div class="row">
+        <div class="col">{{name}}</div>
+        <div class="col">{{bu}}</div>
+        <div class="col">{{inflige}}</div>
+        <div class="col">{{xbu}}</div>
+        <div class="col">{{xinflige}}</div>
+        <div class="col">{{fautes}}</div>
+    </div>
+
+    {{/each }}
+    {{#each game.playerAbandon}}
+
+    <div class="row assertive">
+        <div class="col">{{name}}</div>
+        <div class="col">{{bu}}</div>
+        <div class="col">{{inflige}}</div>
+        <div class="col">{{xbu}}</div>
+        <div class="col">{{xinflige}}</div>
+        <div class="col">{{fautes}}</div>
+    </div>
+
+    {{/each }}    
+    <div class="padding">
+        <button id="{{game._id}}" class="button button-small button-assertive delete">Supprimer</button>
+        <button id="{{game._id}}" class="button button-small button-positive start">Reprendre</button>
+    </div>
+    
+    {{/ionModal}}
+</template>

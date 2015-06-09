@@ -1,0 +1,16 @@
+.center {
+    text-align: center;   
+}
+
+.score {
+
+}
+
+.button.tiny {
+    padding: 0.6rem;
+    margin: 0;
+}
+
+.reactive-table tr {
+ cursor: pointer;
+}

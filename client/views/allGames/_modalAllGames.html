@@ -1,0 +1,44 @@
+<template name="_myModalAllGames">
+    {{#ionModal title="Détails Partie"}}
+    <div class="padding">
+        Détails {{game._id}}
+    </div>
+
+    <div class="row">
+        <div class="col">#</div>
+        <div class="col">B</div>
+        <div class="col">I</div>
+        <div class="col">X4B</div>
+        <div class="col">X4I</div>
+        <div class="col">F</div>
+    </div>
+
+    {{#each game.playerList}}
+
+    <div class="row">
+        <div class="col">{{name}}</div>
+        <div class="col"><span class="badge badge-stable">{{bu}}</span></div>
+        <div class="col"><span class="badge badge-stable">{{inflige}}</span></div>
+        <div class="col"><span class="badge badge-stable">{{xbu}}</span></div>
+        <div class="col"><span class="badge badge-stable">{{xinflige}}</span></div>
+            <div class="col"><span class="badge badge-stable">{{fautes}}</span></div>
+    </div>
+
+    {{/each }}
+    {{#each game.playerAbandon}}
+
+    <div class="row assertive">
+        <div class="col">{{name}}</div>
+        <div class="col"><span class="badge badge-stable">{{bu}}</span></div>
+        <div class="col"><span class="badge badge-stable">{{inflige}}</span></div>
+        <div class="col"><span class="badge badge-stable">{{xbu}}</span></div>
+        <div class="col"><span class="badge badge-stable">{{xinflige}}</span></div>
+        <div class="col"><span class="badge badge-stable">{{fautes}}</span></div>
+    </div>
+
+    {{/each }}    
+    <div class="padding">
+        <button id="{{game._id}}" data-dismiss="modal" class="button button-small">Fermer</button>
+    </div>
+    {{/ionModal}}
+</template>

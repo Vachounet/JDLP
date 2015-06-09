@@ -1,0 +1,64 @@
+<template name="game">
+    {{#contentFor "headerTitle"}}
+    <h1 class="title">Détails Partie</h1> {{/contentFor}} {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+        {{#if isAndroid}} {{> ionIcon icon='android-more-vertical'}} {{else}} {{> ionIcon icon='navicon'}} {{/if}}
+    </button>
+    {{/contentFor}} {{#contentFor "headerButtonRight"}} {{>ionNavBackButton path="/allGame"}} {{/contentFor}} {{#ionView}}
+    
+    
+    {{#ionContent}}
+    
+    <div class="list card">
+        <div class="item item-divider">
+            <div class="padding">
+                Détails {{_id}} - {{localDate}}
+            </div>
+        </div>
+        <div class="item item-text-wrap">
+            <div class="row">
+                <div class="col">#</div>
+                <div class="col">B</div>
+                <div class="col">I</div>
+                <div class="col">X4B</div>
+                <div class="col">X4I</div>
+                <div class="col">F</div>
+            </div>
+
+            {{#each playerList}}
+
+            <div class="row item">
+                <div class="col">{{name}}</div>
+                <div class="col">{{bu}}
+                </div>
+                <div class="col">{{inflige}}
+                </div>
+                <div class="col">{{xbu}}
+                </div>
+                <div class="col">{{xinflige}}
+                </div>
+                <div class="col">{{fautes}}
+                </div>
+            </div>
+
+            {{/each }} {{#each playerAbandon}}
+
+            <div class="row assertive item">
+                <div class="col">{{name}}
+                </div>
+                <div class="col">{{bu}}
+                </div>
+                <div class="col">{{inflige}}
+                </div>
+                <div class="col">{{xbu}}
+                </div>
+                <div class="col">{{xinflige}}
+                </div>
+                <div class="col">{{fautes}}
+                </div>
+            </div>
+            {{/each }}
+        </div>
+    </div>
+    {{/ionContent}} {{/ionView}}
+</template>

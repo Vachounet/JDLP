@@ -1,0 +1,31 @@
+<template name="playerNames">
+     {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+        {{#if isAndroid}} {{> ionIcon icon='android-more-vertical'}} {{else}} {{> ionIcon icon='navicon'}} {{/if}}
+    </button>
+    {{/contentFor}} {{#contentFor "headerTitle"}}
+    <h1 class="title">Nom des joueurs</h1>
+    {{/contentFor}}    
+    {{#ionView}} {{#ionContent}}
+
+            <div class="card">
+                <form id="playersName" class="playersName form-horizontal">
+                    {{#each players}} {{> playerName}} {{/each}}
+
+                    <a role="button" href="#" class="button button-block button-positive validateNames">Valider</a>
+
+
+                </form>
+
+        </div>
+
+    {{/ionContent}} {{/ionView}}
+</template>
+
+<template name="playerName">
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Joueurs {{id}}</span>
+        <input type="text" tabindex="{{id}}" required minlength="3" name="player{{id}}" placeholder="Joueur {{id}}" />
+    </label>
+
+</template>

@@ -1,0 +1,52 @@
+<template name="userPage">
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">Détails compte</h1>
+    {{/contentFor}}
+
+    {{#contentFor "headerButtonLeft"}}
+        <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+            {{#if isAndroid}}
+                {{> ionIcon icon='android-more-vertical'}}
+            {{else}}
+                {{> ionIcon icon='navicon'}}
+            {{/if}}
+        </button>
+    {{/contentFor}}
+    {{#ionView}} {{#ionContent}}
+        <div class="list card">
+            <div class="item item-text-wrap">
+                <a href="#" class="item item-icon-left">
+                    <i class="icon ion-android-arrow-dropright"></i>
+                    ID :  {{_id}}
+                </a>
+                <a href="#" class="item item-icon-left">
+                    <i class="icon ion-android-arrow-dropright"></i>
+                    Pseudo :  {{profile.nickname}}
+                </a>
+                <a href="#" class="item item-icon-left">
+                    <i class="icon ion-android-arrow-dropright"></i>
+                    Email :  {{#each emails}}{{address}}{{/each}}
+                </a>
+                <a href="#" class="item item-icon-left">
+                    <i class="icon ion-android-arrow-dropright"></i>
+                    Compte créé le :  {{formatDate createdAt}}
+                </a>
+                <a href="#" class="item item-icon-left">
+                    <i class="icon ion-android-arrow-dropright"></i>
+                    Nombre de parties :  {{gameCount}}
+                </a>
+                <a href="#" class="item item-icon-left">
+                    <i class="icon ion-android-arrow-dropright"></i>
+                    La liste de tes parties se trouve dans le menu de droite. Tu peux accéder aux détails ou reprendre une partie.
+                </a>
+            </div>
+        </div>
+
+        <div class="padding button-bar">
+
+            <a class="changePwd button" data-ion-modal="_modalAccount">Changer MDP</a>
+            <a class="button button-positive" data-action="logout">Se déconnecter</a>
+        </div>
+
+    {{/ionContent}} {{/ionView}}
+</template>

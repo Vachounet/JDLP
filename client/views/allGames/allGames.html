@@ -1,0 +1,86 @@
+<template name="allGames">
+     {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear pull-left" data-ion-menu-toggle="left">
+        {{#if isAndroid}} {{> ionIcon icon='android-more-vertical'}} {{else}} {{> ionIcon icon='navicon'}} {{/if}}
+    </button>
+    {{/contentFor}}
+ {{#contentFor "headerTitle"}}
+    <h1 class="title">Liste des parties</h1>
+    {{/contentFor}}        
+    
+    {{#ionView}} {{#ionContent}}
+
+            <a class="button button-dark button-small" style="display: {{buttonVisibility}}" href="/gameTable/{{currentGameID}}" role="button">Retour à la partie en cours</a>
+
+
+            <!--                            {{> reactiveTable class="table table-hover table-responsive text-center" settings=settings}}-->
+             {{#ionList}}
+                {{#each allGames}}
+            
+                {{#ionItem buttonRight=true avatar=false}}
+            
+                    <h2>{{creatorUserName}}</h2> <p>{{localDate}}</p>
+                    <button id="{{_id}}" class="button button-positive _modalAllGames">
+                        <i class="icon ion-plus-round"></i>
+                    </button>
+                {{/ionItem}}
+                {{/each}}
+             {{/ionList}}
+    {{/ionContent}} {{/ionView}} 
+    
+<!--    {{> modalAllGames}}-->
+</template>
+
+
+<template name="modalAllGames">
+    <div class="modal fade" id="allGamesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Détails {{game._id}}</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-responsive table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>B</th>
+                                <th>I</th>
+                                <th>X4.B</th>
+                                <th>X4.I</th>
+                                <th>F</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each game.playerList}}
+                            <tr>
+                                <td>{{name}}</td>
+                                <td>{{bu}}</td>
+                                <td>{{inflige}}</td>
+                                <td>{{xbu}}</td>
+                                <td>{{xinflige}}</td>
+                                <td>{{fautes}}</td>
+                            </tr>{{/each}} {{#each game.playerAbandon}}
+                            <tr class="danger">
+                                <td>{{name}}</td>
+                                <td>{{bu}}</td>
+                                <td>{{inflige}}</td>
+                                <td>{{xbu}}</td>
+                                <td>{{xinflige}}</td>
+                                <td>{{fautes}}</td>
+                            </tr>{{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

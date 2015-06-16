@@ -1,17 +1,7 @@
 <template name="_tabs">
-  {{#if isAndroid}}
-    {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
-      {{> ionTab title="Tab 1" path="tabs.one" icon="android-home"}}
-      {{> ionTab title="Tab 2" path="tabs.two" icon="android-star"}}
-      {{> ionTab title="Tab 3" path="tabs.three" icon="heart"}}
-      {{> ionTab title="Tab 4" path="tabs.four" icon="gear-b"}}
+    {{#ionTabs style="ios" class="tabs-background-positive tabs-color-light"}}
+      {{> ionTab title="Partie" path="tabs.gameTable" iconOff="ios-home" iconOn="ios-home"}}
+      {{> ionTab title="Stats" path="tabs.gameStats" iconOff="pie-graph" iconOn="pie-graph"}}
+      {{> ionTab title="Comms" path="tabs.gameComments" iconOff="chatboxes" iconOn="chatboxes"}}
     {{/ionTabs}}
-  {{else}}
-    {{#ionTabs style="ios"}}
-      {{> ionTab title="Tab 1" path="tabs.one" iconOff="ios-home-outline" iconOn="ios-home"}}
-      {{> ionTab title="Tab 2" path="tabs.two" iconOff="ios-star-outline" iconOn="ios-star"}}
-      {{> ionTab title="Tab 3" path="tabs.three" iconOff="ios-heart-outline" iconOn="ios-heart"}}
-      {{> ionTab title="Tab 4" path="tabs.four" iconOff="ios-gear-outline" iconOn="ios-gear"}}
-    {{/ionTabs}}
-  {{/if}}
 </template>

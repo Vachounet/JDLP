@@ -110,7 +110,6 @@ Router.route('/user/', {
 // All games route
 Router.route('/allGames', {
     name: 'allGames',
-    fastRender: true,
     action: function() {
         this.render('allGames');
         SEO.set({
@@ -121,7 +120,6 @@ Router.route('/allGames', {
 
 Router.route('/tabs', {
     name: 'tabs',
-    fastRender: true,
     action: function() {
         this.layout('tabsLayout');
         this.render('tabs.one');
@@ -131,53 +129,39 @@ Router.route('/tabs', {
     }
 });
 
-Router.route('/tabs.one', {
-    name: 'tabs.one',
-    fastRender: true,
+Router.route('/tabs.gameTable', {
+    name: 'tabs.gameTable',
     action: function() {
         this.layout('tabsLayout');
-        this.render('tabs.one');
+        this.render('gameTable');
         SEO.set({
-            title: 'Tabs - ' + Meteor.App.NAME
+            title: 'Partie en cours - ' + Meteor.App.NAME
         });
     }
 });
 
-Router.route('/tabs.two', {
-    name: 'tabs.two',
-    fastRender: true,
+Router.route('/tabs.gameStats', {
+    name: 'tabs.gameStats',
     action: function() {
         this.layout('tabsLayout');
-        this.render('tabs.two');
+        this.render('_statsPopover');
         SEO.set({
-            title: 'Tabs - ' + Meteor.App.NAME
+            title: 'Stats - ' + Meteor.App.NAME
         });
     }
 });
 
-Router.route('/tabs.three', {
-    name: 'tabs.three',
-    fastRender: true,
+Router.route('/tabs.gameComments', {
+    name: 'tabs.gameComments',
     action: function() {
         this.layout('tabsLayout');
-        this.render('tabs.three');
+        this.render('_commModal');
         SEO.set({
-            title: 'Tabs - ' + Meteor.App.NAME
+            title: 'Commentaires - ' + Meteor.App.NAME
         });
     }
 });
 
-Router.route('/tabs.four', {
-    name: 'tabs.four',
-    fastRender: true,
-    action: function() {
-        this.layout('tabsLayout');
-        this.render('tabs.four');
-        SEO.set({
-            title: 'Tabs - ' + Meteor.App.NAME
-        });
-    }
-});
 //Router.route('verifyEmail', {
 //    controller: 'AccountController',
 //    path: '/verify-email/:token',

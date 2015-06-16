@@ -11,5 +11,5 @@ globalVariable = function () {
 //}
 
 Accounts.onLogin(function(user){
-    Router.go('/user/' + Meteor.userId());
+    Router.go('/user/');
 });

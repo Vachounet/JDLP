@@ -162,7 +162,7 @@ Template.gameTable.helpers({
         if (CurrentGame && CurrentGame.currentPlayerID !== "")
             return CurrentGame.playerList[CurrentGame.currentPlayerID].name;
         else
-            return CurrentGame.playerList[0].name
+            return CurrentGame.playerList[0].name;
     }
 });
 
@@ -173,6 +173,13 @@ Template.gameTable.rendered = function() {
     //    $("div[id^='playerEntry']").each(function (i, el) {
     //        $(el).hide();
     //    });
+    //$('.ion-slide-box').slick('swipe', false);
+    //$('.ion-slide-box').slick('draggable', false);
+    //
+    $('.ion-slide-box').slick({
+        draggable: false,
+        swipe: false,
+    });
 
     var curPlayer = parseInt(CurrentGame.currentPlayerID);
 
@@ -188,6 +195,8 @@ Template.gameTable.rendered = function() {
     //        duration: 600
     //    });
     _currentPlayerNick.changed();
+
+    Session.set('curGameID', CurrentGame.id);
 };
 
 Template.gameTable.events({
@@ -196,18 +205,19 @@ Template.gameTable.events({
 
         //        $('#playerEntry' + parseInt(playerID) + ' a.btn-success').hide();
 
-        IonLoading.show({
-            customTemplate: '<h3>Mise à jour des stats</h3><p>Le temps de boire un coup.</p>',
-            duration: 4000
-        });
 
-        setTimeout(function() {
-
-            if (CurrentGame.sens === "horaire")
-                $('.ion-slide-box').slick('slickNext');
-            else
-                $('.ion-slide-box').slick('slickPrev');
-        }, 4000);
+        //IonLoading.show({
+        //    customTemplate: '<h3>Mise à jour des stats</h3><p>Le temps de boire un coup.</p>',
+        //    duration: 4000
+        //});
+        //
+        //setTimeout(function() {
+        //
+        //    if (CurrentGame.sens === "horaire")
+        //        $('.ion-slide-box').slick('slickNext');
+        //    else
+        //        $('.ion-slide-box').slick('slickPrev');
+        //}, 4000);
 
         Meteor.call('applyNewPlayerScore', "inflige", playerID, true, function(error, result) {
 
@@ -220,16 +230,6 @@ Template.gameTable.events({
     },
     "click a.xquatre": function(event, template) {
         var playerID = event.currentTarget.id;
-
-        IonLoading.show({
-            customTemplate: '<h3>Mise à jour des stats</h3><p>Le temps de boire un coup.</p>',
-            duration: 4000
-        });
-
-            if (CurrentGame.sens === "horaire")
-                $('.ion-slide-box').slick('slickNext');
-            else
-                $('.ion-slide-box').slick('slickPrev');
 
         Meteor.call('applyNewPlayerScore', "x4inflige", playerID, true, function(error, result) {
 
@@ -244,19 +244,6 @@ Template.gameTable.events({
     },
     "click a.faute": function(event, template) {
         var playerID = event.currentTarget.id;
-
-        IonLoading.show({
-            customTemplate: '<h3>Mise à jour des stats</h3><p>Le temps de boire un coup.</p>',
-            duration: 4000
-        });
-
-        setTimeout(function() {
-
-            if (CurrentGame.sens === "horaire")
-                $('.ion-slide-box').slick('slickNext');
-            else
-                $('.ion-slide-box').slick('slickPrev');
-        }, 4000);
 
         Meteor.call('applyNewPlayerScore', "fautes", playerID, true, function(error, result) {
 
@@ -298,28 +285,99 @@ Template.gameTable.events({
         CurrentGame.currentPlayerID = nextPlayerID;
         CurrentGame.nextPlayerID = nextPlayerID + 1;
 
-IonLoading.show({
-    customTemplate: '<h3>Mise à jour des stats</h3><p>Le temps de boire un coup.</p>',
-    duration: 4000
-});
 
-setTimeout(function() {
-
-    if (CurrentGame.sens === "horaire")
-    $('.ion-slide-box').slick('slickNext');
- else
-    $('.ion-slide-box').slick('slickPrev');
- }, 4000);
-
-        Meteor.call('updateGame', CurrentGame, function(err, response) {
-            Session.set('serverSimpleResponse', response);
-        });
 
         if (CurrentGame.playerList < 2) {
             CurrentGame.endTime = new Date();
             CurrentGame.gameFinished = true;
-            toastr.info("Il ne reste plus qu'un seul joueur, la partie est terminée !", "Fin de partie !");
+
+            IonPopup.show({
+                title: 'Fin de partie !',
+                template: "Il ne reste plus qu'un seul joueur, la partie est terminée !",
+                buttons: [{
+                    text: 'Suivant',
+                    type: 'button-positive',
+                    onTap: function() {
+                        IonPopup.close();
+                        if (CurrentGame.sens === "horaire")
+                            $('.ion-slide-box').slick('slickNext');
+                        else
+                            $('.ion-slide-box').slick('slickPrev');
+                    }
+                }]
+            });
+
+            Meteor.call('updateGame', CurrentGame, function(err, response) {
+                Session.set('serverSimpleResponse', response);
+            });
+
+            Router.go('/myGame/' + CurrentGame.id);
+
         }
+    },
+    "click .takePhoto": function() {
+
+        var pictureID = 0;
+
+        IonPopup.confirm({
+            title: 'Ajouter un commentaire',
+            template: 'Prendre une photo ?',
+            onOk: function() {
+                var cameraOptions = {
+                    width: 400,
+                    height: 300,
+                    quality: 5
+                };
+
+                MeteorCamera.getPicture(cameraOptions, function (err, data) {
+                    if (err) {
+                        console.log(err);
+                        // TODO Need to handle the error
+                    } else {
+                        pictureID = GamePictures.insert({submitted_by: Meteor.userId(), submitted_on: new Date(), photo_data: data, game_id: CurrentGame.id})
+
+                    }
+
+                    IonPopup.prompt({
+                        title: 'Ajouter un commentaire',
+                        template: 'Saisie du commentaire',
+                        okText: 'Valider',
+                        inputType: 'textarea',
+                        inputPlaceholder: 'Ton commentaire',
+                        onOk: function(event,response) {
+                            GameComm.insert({content: response, submitted_by: Meteor.userId(), submitted_on: new Date(), photo_id: pictureID, game_id: CurrentGame.id})
+                        },
+                        onCancel: function() {
+                            console.log('Cancelled');
+                            IonPopup.close();
+                        }
+                    });
+                });
+            },
+            onCancel: function() {
+                setTimeout(function ()
+                {
+                    IonPopup.prompt({
+                        title: 'Ajouter un commentaire',
+                        template: 'Saisie du commentaire',
+                        okText: 'Valider',
+                        inputType: 'textarea',
+                        inputPlaceholder: 'Ton commentaire',
+                        onOk: function(event,response) {
+                            GameComm.insert({content: response, submitted_by: Meteor.userId(), submitted_on: new Date(), photo_id: pictureID, game_id: CurrentGame.id})
+                        },
+                        onCancel: function() {
+                            console.log('Cancelled');
+                            IonPopup.close();
+                        }
+                    });
+                }, 200);
+            }
+        });
+
+
+
+
     }
 });
 
@@ -356,7 +414,21 @@ Meteor.methods({
                 add ? nextPlayer.bu++ : nextPlayer.bu--;
 
                 if (add) {
-                    toastr.success(currentPlayer.name + " vient d'infliger une verre de plus pour " + nextPlayer.name, "+1");
+                    IonPopup.show({
+                        title: '+1',
+                        template: currentPlayer.name + " vient d'infliger une verre de plus pour " + nextPlayer.name,
+                        buttons: [{
+                            text: 'Suivant',
+                            type: 'button-positive',
+                            onTap: function() {
+                                IonPopup.close();
+                                if (CurrentGame.sens === "horaire")
+                                    $('.ion-slide-box').slick('slickNext');
+                                else
+                                    $('.ion-slide-box').slick('slickPrev');
+                            }
+                        }]
+                    });
                 }
                 break;
             case "x4bu":
@@ -371,14 +443,31 @@ Meteor.methods({
                 add ? nextPlayer.bu = nextPlayer.bu + 4 : nextPlayer.bu = nextPlayer.bu - 4;
 
                 if (add) {
-                    if (CurrentGame.sens === "horaire") {
-                        CurrentGame.sens = "antihoraire";
-                    } else if (CurrentGame.sens === "antihoraire") {
-                        CurrentGame.sens = "horaire";
-                    }
 
-                    toastr.success(currentPlayer.name + " vient de faire mal à " +
-                        nextPlayer.name + " avec un X4. Le jeu change de sens : Vengence !!!", "+4");
+
+                    IonPopup.show({
+                        title: 'X4',
+                        template: currentPlayer.name + " vient de faire mal à " +
+                        nextPlayer.name + " avec un X4. Le jeu change de sens : Vengence !!!",
+                        buttons: [{
+                            text: 'Suivant',
+                            type: 'button-positive',
+                            onTap: function() {
+                                IonPopup.close();
+                                if (CurrentGame.sens === "horaire")
+                                    $('.ion-slide-box').slick('slickNext');
+                                else
+                                    $('.ion-slide-box').slick('slickPrev');
+
+                                if (CurrentGame.sens === "horaire") {
+                                    CurrentGame.sens = "antihoraire";
+                                } else if (CurrentGame.sens === "antihoraire") {
+                                    CurrentGame.sens = "horaire";
+                                }
+                            }
+                        }]
+                    });
+
 
                 }
                 break;
@@ -387,9 +476,21 @@ Meteor.methods({
                 add ? currentPlayer.bu++ : currentPlayer.bu--;
 
                 if (add) {
-
-                    toastr.error(currentPlayer.name + " vient de faire une faute de jeu. Bois un verre et passes ton tour mon ami !", "Faute !");
-
+                    IonPopup.show({
+                        title: 'Faute !',
+                        template: currentPlayer.name + " vient de faire une faute de jeu. Bois un verre et passes ton tour mon ami !",
+                        buttons: [{
+                            text: 'Suivant',
+                            type: 'button-positive',
+                            onTap: function() {
+                                IonPopup.close();
+                                if (CurrentGame.sens === "horaire")
+                                    $('.ion-slide-box').slick('slickNext');
+                                else
+                                    $('.ion-slide-box').slick('slickPrev');
+                            }
+                        }]
+                    });
                 }
 
                 break;

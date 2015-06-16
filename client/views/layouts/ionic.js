@@ -1,3 +1,10 @@
+Meteor.subscribe('myGames');
+
+Meteor.subscribe('gameComms');
+
+Meteor.subscribe('gamePictures');
+
+
 Template.layoutionic.rendered = function () {
  IonSideMenu.snapper.settings({disable: 'right'});
  if (Accounts._resetPasswordToken) {
@@ -7,6 +14,7 @@ Template.layoutionic.rendered = function () {
 
   AccountsTemplates.setState("resetPwd");
  }
+
  //IonSideMenu.snapper.disable();
 };
 

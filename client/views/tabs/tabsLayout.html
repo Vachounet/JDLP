@@ -1,8 +1,31 @@
 <template name="tabsLayout">
-  {{#ionBody}}
-    {{#ionView}}
-      {{> yield}}
-      {{> _tabs}}
-    {{/ionView}}
-  {{/ionBody}}
+    {{#ionBody}}
+
+        {{#ionSideMenuContainer}}
+
+            {{#ionSideMenu}}
+                <div class="bar bar-header bar-dark">
+                    <h1 class="title">Menu</h1>
+                </div>
+                <div class="content has-header">
+                    <div class="list">
+                        {{> menu}}
+                    </div>
+                </div>
+            {{/ionSideMenu}}
+
+            {{#ionSideMenuContent}}
+
+                {{> ionNavBar class="bar-positive"}}
+
+                {{#ionNavView}}
+                    {{> yield}}
+                    {{> _tabs}}
+                {{/ionNavView}}
+
+            {{/ionSideMenuContent}}
+
+        {{/ionSideMenuContainer}}
+
+    {{/ionBody}}
 </template>

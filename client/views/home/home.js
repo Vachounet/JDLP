@@ -10,7 +10,7 @@ Template.connected.events({
   }
 });
 
-Meteor.subscribe('myGames');
+
 
     Session.setDefault("playersCount", 0);
 
@@ -60,6 +60,44 @@ Games.allow({
     'update': function (doc) {
         /* user and doc checks ,
       return true to allow insert */
+        return true;
+    }
+
+});
+
+GamePictures.allow({
+    'insert': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'remove': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'update': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    }
+
+});
+
+GameComm.allow({
+    'insert': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'remove': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'update': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
         return true;
     }
 

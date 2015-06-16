@@ -7,18 +7,19 @@
     </button>
     {{/contentFor}}
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-popover="_statsPopover">
+    <button class="button button-clear" data-ion-popover="_commPopover">
       {{#if isAndroid}}
-        {{> ionIcon icon='android-more-vertical'}} Stats
+        {{> ionIcon icon='android-more-horizontal'}}
       {{else}}
-        {{> ionIcon icon='more'}} Stats
+        {{> ionIcon icon='more'}}
       {{/if}}
     </button>
   {{/contentFor}}    
     
     
     {{#ionView}}    {{#ionSubheaderBar}}
-      <h2 class="title"> C'est à {{currentPlayerNick}} de jouer </h2>
+      <h2 class="title"> C'est à {{currentPlayerNick}}</h2>
+
     {{/ionSubheaderBar}} {{#ionContent}}
     <!--    {{> breadcrumb}}-->
 

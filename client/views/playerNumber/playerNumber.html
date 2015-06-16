@@ -9,27 +9,27 @@
     {{/contentFor}}    
     {{#ionView}} {{#ionContent}} 
 
-        <div class="card">
-            <a class="button button-dark button-small" style="display: {{buttonVisibility}}" href="/gameTable/{{currentGameID}}" role="button">Retour à la partie en cours</a>
+
+            <!--<a class="button button-dark button-small" style="display: {{buttonVisibility}}" href="/gameTable/{{currentGameID}}" role="button">Retour à la partie en cours</a>-->
             <form id="playersCount" class="playersCount form-horizontal">
-                <div class="list">
+                <div class="card list list-inset">
                     {{> playersCnt}}
+                    <div class="padding">
+                        <input type="submit" class="submit button button-block button-positive validatePlayersCount" value="Valider">
+                    </div>
                 </div>
-                <div class="padding">
-                    <input type="submit" class="submit button button-block button-positive validatePlayersCount" value="Valider">
-                </div>
+
             </form>
 
-    </div>
 
     {{/ionContent}} {{/ionView}}
 </template>
 
 <template name="playersCnt">
 
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input">
         <span class="input-label">Nombre de joueurs</span>
-        <input type="number" tabindex="1" class="form-control" required maxlength="2" name="playerCnt" placeholder="" />
+        <input type="number" tabindex="1" class="form-control" required maxlength="2" name="playerCnt" placeholder="Nombre de joueurs" />
     </label>
 
 

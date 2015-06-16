@@ -3,6 +3,16 @@ Meteor.publish('myGames', function () {
     return Games.find();
 });
 
+Meteor.publish('gameComms', function () {
+    //    var localGames = LocalStore.get('localGames');
+    return GameComm.find();
+});
+
+Meteor.publish('gamePictures', function () {
+    //    var localGames = LocalStore.get('localGames');
+    return GamePictures.find();
+});
+
 
 Meteor.startup(function () {
     Meteor.methods({
@@ -83,3 +93,40 @@ Games.allow({
 
 });
 
+GamePictures.allow({
+    'insert': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'remove': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'update': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    }
+
+});
+
+GameComm.allow({
+    'insert': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'remove': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    },
+    'update': function (doc) {
+        /* user and doc checks ,
+         return true to allow insert */
+        return true;
+    }
+
+});

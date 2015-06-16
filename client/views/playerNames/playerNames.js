@@ -108,7 +108,7 @@ Template.playerNames.events({
 //        addGame.push(gameID);
 //        LocalStore.set('localGames', addGame);
         
-        Router.go('/gameTable/' + gameID);
+        Router.go('/tabs.gameTable');
 
         // Prevent default form submit
         return false;

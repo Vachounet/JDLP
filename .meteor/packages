@@ -29,3 +29,5 @@ meteorhacks:kadira
 gwendall:auth-client-callbacks
 momentjs:moment
 useraccounts:core
+mdg-geolocation
+mdg-camera

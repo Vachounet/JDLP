@@ -9,15 +9,15 @@
     
     {{#ionContent}}
     
-    <div class="list card">
+    <div class="list list-inset card">
         <div class="item item-divider">
             <div class="padding">
-                Détails {{_id}} - {{localDate}}
+                Détails {{localDate}}
             </div>
         </div>
         <div class="item item-text-wrap">
             <div class="row">
-                <div class="col">#</div>
+                <div class="col col-33">#</div>
                 <div class="col">B</div>
                 <div class="col">I</div>
                 <div class="col">X4B</div>
@@ -28,7 +28,7 @@
             {{#each playerList}}
 
             <div class="row item">
-                <div class="col">{{name}}</div>
+                <div class="col col-33">{{name}}</div>
                 <div class="col">{{bu}}
                 </div>
                 <div class="col">{{inflige}}
@@ -44,7 +44,7 @@
             {{/each }} {{#each playerAbandon}}
 
             <div class="row assertive item">
-                <div class="col">{{name}}
+                <div class="col col-33">{{name}}
                 </div>
                 <div class="col">{{bu}}
                 </div>

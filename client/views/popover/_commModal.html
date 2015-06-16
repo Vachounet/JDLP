@@ -1,6 +1,6 @@
-<template name="_statsPopover">
+<template name="_commModal">
     {{#contentFor "headerTitle"}}
-        <h1 class="title">Stats</h1>
+        <h1 class="title">Commentaires</h1>
     {{/contentFor}} {{#contentFor "headerButtonLeft"}}
     <button class="button button-clear pull-left" data-ion-menu-toggle="left">
         {{#if isAndroid}} {{> ionIcon icon='android-more-vertical'}} {{else}} {{> ionIcon icon='navicon'}} {{/if}}
@@ -16,24 +16,20 @@
         </button>
     {{/contentFor}}
     {{#ionView}} {{#ionContent}}
-    <div class="content">
-        <div class="list">
-            <a class="item item-icon-right">
-          +Bu : {{topBu.bu}} ({{topBu.name}})
-        </a>
-            <a class="item item-icon-right" >
-          +Infligé : {{topInflige.inflige}} ({{topInflige.name}})
-        </a>
-            <a class="item item-icon-right">
-+X4Bu : {{topXBu.xbu}} ({{topXBu.name}})
-        </a>
-            <a class="item item-icon-right">
-+X4Infligé : {{topXInflige.xinflige}} ({{topXInflige.name}})
-        </a>
-            <a class="item item-icon-right">
-+Fautes : {{topFautes.fautes}} ({{topFautes.name}})
-        </a>
+    <div class="list card">
+        {{#each getComms}}
+            <a href="#" class="item item-icon-left">
+                <i class="ion-clock"></i>
+               {{formatTime submitted_on}}
+            </a>
+        <div class="item item-image">
+            <img src="{{getPicture photo_id}}" />
         </div>
-    </div>
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-information-circled"></i>
+                {{content}}
+            </a>
+        {{/each}}
+        </div>
     {{/ionContent}} {{/ionView}}
 </template>
